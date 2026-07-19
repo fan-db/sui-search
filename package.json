@@ -12,6 +12,11 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^7.1.1"
+    "astro": "^7.1.1",
+    "minisearch": "^7.2.0",
+    "papaparse": "^5.5.4"
+  },
+  "allowScripts": {
+    "esbuild@0.28.1": true
   }
 }
