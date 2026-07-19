@@ -3,5 +3,5 @@ import { defineConfig } from 'astro/config';
 
 export default defineConfig({
   site: 'https://fan-db.github.io',
-  base: '/suiwed-search',
+  base: '/sui-search',
 });
