@@ -1276,20 +1276,25 @@
   "categoryTree": {
     "mainCategories": [
       {
-        "name": "遊ぶ",
+        "name": "ゲーム",
         "subCategories": []
       },
       {
         "name": "食べる",
         "subCategories": [
-          "当てる"
+          "ダービー"
         ]
       },
       {
-        "name": "話す",
+        "name": "雑談",
         "subCategories": [
-          "グランプリ"
+          "グランプリ",
+          "絵"
         ]
+      },
+      {
+        "name": "買う",
+        "subCategories": []
       }
     ],
     "uncategorized": []
