@@ -372,9 +372,13 @@ function formatDate(iso) {
   }
 
   async function main() {
+    const base = import.meta.env.BASE_URL.endsWith('/')
+      ? import.meta.env.BASE_URL
+      : import.meta.env.BASE_URL + '/';
+
     const [videosRes, commentsRes] = await Promise.all([
-      fetch(import.meta.env.BASE_URL + 'data/videos.json'),
-      fetch(import.meta.env.BASE_URL + 'data/comments.json'),
+      fetch(base + 'data/videos.json'),
+      fetch(base + 'data/comments.json'),
     ]);
     const { videos } = await videosRes.json();
     const { entries } = await commentsRes.json();
