@@ -1,23 +1,50 @@
+---
+const { title = '水曜 Wednesday' } = Astro.props;
+---
 <!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@400;500&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <slot />
+  </body>
 </html>
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
+<style is:global>
+  :root {
+    --bg: #f0faff;
+    --surface: #ffffff;
+    --surface-hover: #e6f7fb;
+    --border: #d7edf3;
+    --text: #123049;
+    --text-muted: #6b8a9c;
+    --accent-blue: #29b6d8;
+    --accent-teal: #17a2a8;
+    --accent-navy: #3c4f63;
+    --accent-gray: #9aa5ab;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    line-height: 1.6;
+  }
+
+  /* サイトタイトルだけ手書き風フォントでロゴ感を出す */
+  .site-title {
+    font-family: 'Kiwi Maru', serif;
+    font-weight: 500;
+  }
+
+  a { color: var(--accent-teal); }
+  button { font-family: inherit; }
 </style>

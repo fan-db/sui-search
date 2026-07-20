@@ -1,0 +1,57 @@
+name: Update Data
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: リポジトリを取得
+        uses: actions/checkout@v4
+
+      - name: Node.jsをセットアップ
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: 依存パッケージをインストール
+        run: npm ci
+
+      - name: .envファイルを生成(GitHub Secretsの値から)
+        run: |
+          echo "YOUTUBE_API_KEY=${{ secrets.YOUTUBE_API_KEY }}" >> .env
+          echo "YOUTUBE_PLAYLIST_ID=${{ secrets.YOUTUBE_PLAYLIST_ID }}" >> .env
+          echo "OVERRIDES_CSV_URL=${{ secrets.OVERRIDES_CSV_URL }}" >> .env
+          echo "CATEGORY_CONFIG_CSV_URL=${{ secrets.CATEGORY_CONFIG_CSV_URL }}" >> .env
+          echo "SHEET_WEBHOOK_URL=${{ secrets.SHEET_WEBHOOK_URL }}" >> .env
+          echo "SHEET_WEBHOOK_TOKEN=${{ secrets.SHEET_WEBHOOK_TOKEN }}" >> .env
+
+      - name: "①動画一覧を取得"
+        run: npm run fetch:videos
+
+      - name: "②スプシに新規動画を書き込み"
+        run: npm run push:sheet
+
+      - name: "③overridesシートを取得"
+        run: npm run fetch:overrides
+
+      - name: "④カテゴリ設定シートを取得"
+        run: npm run fetch:category
+
+      - name: "⑤コメントを取得・タイムスタンプ抽出"
+        run: npm run fetch:comments
+
+      - name: "⑥データを統合してビルド用JSONを生成"
+        run: npm run build:data
+
+      - name: 変更をコミット・push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/ src/data/ public/data/
+          git diff --cached --quiet || git commit -m "chore: データ自動更新"
+          git push

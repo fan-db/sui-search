@@ -1,0 +1,70 @@
+---
+const { title = '水曜 Wednesday' } = Astro.props;
+---
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <main>
+      <slot />
+    </main>
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --bg: #eaf8fc;
+    --surface: #ffffff;
+    --surface-hover: #e6f7fb;
+    --border: #d7edf3;
+    --text: #123049;
+    --text-muted: #6b8a9c;
+    --accent-blue: #29b6d8;
+    --accent-teal: #17a2a8;
+    --accent-navy: #3c4f63;
+    --accent-gray: #9aa5ab;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: linear-gradient(180deg, #eaf8fc 0%, #f5fcff 40%, #ffffff 100%);
+    color: var(--text);
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    line-height: 1.6;
+  }
+
+  /* 1つ目のサイト(mzm-search)と構造を揃え、maxwidthはレイアウト側に一本化 */
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 24px 16px 80px;
+  }
+
+  .site-title {
+    font-family: 'Kiwi Maru', cursive;
+  }
+
+  a { color: var(--accent-teal); }
+  button { font-family: inherit; }
+
+  /* ---- 1つ目と同じくアクセシビリティ対応を追加 ---- */
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible {
+    outline: 2px solid var(--accent-blue);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+</style>

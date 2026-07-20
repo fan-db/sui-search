@@ -1,11 +1,518 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import Base from '../layouts/Base.astro';
+import videosData from '../data/videos.json';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const { videos, categoryTree } = videosData;
+
+const mainToSubsMap = Object.fromEntries(
+  categoryTree.mainCategories.map((m) => [m.name, m.subCategories])
+);
+
+function formatDate(iso) {
+  const d = new Date(iso);
+  return `${d.getFullYear()}/${d.getMonth() + 1}/${d.getDate()}`;
+}
 ---
+<Base title="水曜Wednesday">
+  <header class="page-header">
+    <div class="header-blob" aria-hidden="true"></div>
+    <h1 class="site-title" data-text="水曜Wednesday">水曜Wednesday</h1>
+    <p class="page-subtitle">非公式タイムスタンプ検索</p>
+  </header>
 
-<Layout>
-	<Welcome />
-</Layout>
+  <div class="controls">
+    <input
+      type="text"
+      id="comment-search-input"
+      placeholder="検索…"
+      autocomplete="off"
+      class="search-box"
+    />
+    <p id="search-status" class="search-status"></p>
+
+    <div class="controls-row">
+      <div class="category-control">
+        <button id="category-toggle" class="category-toggle" type="button">
+          カテゴリ ▼
+        </button>
+      </div>
+
+      <div class="sort-toggle" id="sort-toggle">
+        <button type="button" class="sort-button active" data-sort="newest">新しい順</button>
+        <button type="button" class="sort-button" data-sort="oldest">古い順</button>
+      </div>
+    </div>
+
+    <div class="category-filter" id="category-filter" hidden>
+      {categoryTree.mainCategories.map((main) => (
+        <div class="category-group">
+          <label class="category-label main">
+            <input type="checkbox" class="category-checkbox" data-role="main" value={main.name} />
+            {main.name}
+          </label>
+          <div class="sub-category-list">
+            {main.subCategories.map((sub) => (
+              <label class="category-label sub">
+                <input type="checkbox" class="category-checkbox" data-role="sub" value={sub} />
+                {sub}
+              </label>
+            ))}
+          </div>
+        </div>
+      ))}
+
+      {categoryTree.uncategorized.length > 0 && (
+        <div class="category-group">
+          <span class="category-label main muted">未分類</span>
+          <div class="sub-category-list">
+            {categoryTree.uncategorized.map((cat) => (
+              <label class="category-label sub">
+                <input type="checkbox" class="category-checkbox" data-role="sub" value={cat} />
+                {cat}
+              </label>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  </div>
+
+  <div id="search-results" class="video-list"></div>
+
+  <div class="video-list" id="video-list">
+    {videos.map((v) => (
+      <div class="list-card" data-categories={v.categories.join(',')} data-published-at={v.publishedAt}>
+        <img src={v.thumbnail} alt={v.title} loading="lazy" />
+        <div class="list-card-body">
+          <h3 class="card-title">{v.title}</h3>
+          {v.guest && <p class="card-guest">ゲスト: {v.guest}</p>}
+          <div class="card-meta">
+            <span class="card-date">{formatDate(v.publishedAt)}</span>
+            <div class="card-categories">
+              {v.categories.map((c) => <span class="category-badge">{c}</span>)}
+            </div>
+          </div>
+          <a class="youtube-button" href={v.url} target="_blank" rel="noopener noreferrer">
+            YouTubeで見る
+          </a>
+        </div>
+      </div>
+    ))}
+  </div>
+</Base>
+
+<style>
+  .page-header { position: relative; text-align: center; margin-bottom: 28px; padding-top: 20px; }
+
+  .header-blob {
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 260px;
+    height: 140px;
+    background: radial-gradient(circle, var(--accent-blue) 0%, var(--accent-teal) 60%, transparent 80%);
+    opacity: 0.3;
+    filter: blur(30px);
+    z-index: 0;
+  }
+
+  .site-title {
+    position: relative;
+    z-index: 1;
+    display: inline-block;
+    margin: 0;
+    font-size: 2.4rem;
+    color: #0f8fac;
+    text-shadow: 0 6px 16px rgba(23, 162, 168, 0.35);
+  }
+
+  .site-title::before {
+    content: attr(data-text);
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0) 55%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    pointer-events: none;
+  }
+
+  .page-subtitle { position: relative; z-index: 1; margin: 4px 0 0; font-size: 0.85rem; color: var(--text-muted); }
+
+  .controls { margin-bottom: 20px; }
+
+  .search-box {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 1rem;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .search-box:focus { outline: none; border-color: var(--accent-blue); }
+
+  .search-status { color: var(--text-muted); font-size: 0.85rem; margin: 0 0 10px; }
+
+  .controls-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+
+  .category-toggle {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--accent-navy);
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    cursor: pointer;
+  }
+  .category-toggle:hover { background: var(--surface-hover); }
+
+  .sort-toggle { display: flex; gap: 8px; }
+  .sort-button {
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text-muted);
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    cursor: pointer;
+  }
+  .sort-button.active {
+    background: var(--accent-blue);
+    color: #ffffff;
+    border-color: var(--accent-blue);
+  }
+
+  .category-filter {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+  }
+  .category-group { margin-bottom: 10px; }
+  .category-label { display: inline-flex; align-items: center; gap: 4px; margin-right: 12px; font-size: 0.9rem; cursor: pointer; }
+  .category-label.main { font-weight: bold; color: var(--accent-teal); }
+  .category-label.main.muted { color: var(--text-muted); }
+  .sub-category-list { margin-left: 20px; margin-top: 4px; }
+
+  .video-list[hidden] { display: none; }
+</style>
+
+<style is:global>
+  .video-list { display: flex; flex-direction: column; gap: 12px; }
+
+  .list-card {
+    display: flex;
+    gap: 12px;
+    background: #ffffff;
+    border: 1px solid #d7edf3;
+    border-radius: 12px;
+    padding: 12px;
+  }
+  .list-card img {
+    width: 160px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 8px;
+    flex-shrink: 0;
+  }
+  .list-card-body { flex: 1; min-width: 0; }
+
+  .card-title {
+    margin: 0 0 6px;
+    font-size: 0.95rem;
+    overflow-wrap: break-word;
+    color: #123049;
+  }
+
+  .card-guest { font-size: 0.8rem; color: #6b8a9c; margin: 0 0 6px; }
+
+  .card-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+  .card-date { font-size: 0.8rem; color: #6b8a9c; }
+  .card-categories { display: flex; flex-wrap: wrap; gap: 4px; }
+  .category-badge {
+    font-size: 0.75rem;
+    background: #e6f7fb;
+    color: #3c4f63;
+    padding: 2px 8px;
+    border-radius: 999px;
+  }
+
+  .hit-list { display: flex; flex-direction: column; gap: 2px; margin-bottom: 8px; }
+  .hit-row { display: flex; gap: 8px; align-items: baseline; font-size: 0.85rem; }
+  .hit-row a {
+    color: #17a2a8;
+    font-weight: bold;
+    white-space: nowrap;
+    text-decoration: none;
+  }
+  .hit-row a:hover { text-decoration: underline; }
+  .hit-row .label-text { color: #123049; }
+
+  .youtube-button {
+    display: inline-block;
+    background: #29b6d8;
+    color: #ffffff;
+    padding: 6px 14px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: bold;
+  }
+  .youtube-button:hover { background: #17a2a8; }
+
+  @media (max-width: 480px) {
+    .list-card img { width: 110px; height: 62px; }
+  }
+</style>
+
+<script define:vars={{ mainToSubsMap }}>
+  const toggleBtn = document.getElementById('category-toggle');
+  const filterPanel = document.getElementById('category-filter');
+  toggleBtn.addEventListener('click', () => {
+    filterPanel.hidden = !filterPanel.hidden;
+    toggleBtn.textContent = filterPanel.hidden ? 'カテゴリ ▼' : 'カテゴリ ▲';
+  });
+
+  // ★カテゴリの選択状態を取得する共通関数。windowに載せて、
+  //   別の<script>タグ(MiniSearch側)からも呼び出せるようにする
+  window.getSelectedCategories = function () {
+    const checked = [...document.querySelectorAll('.category-checkbox:checked')];
+    return new Set(checked.map((cb) => cb.value));
+  };
+
+  function applyFilter() {
+    const selected = window.getSelectedCategories();
+
+    document.querySelectorAll('#video-list .list-card').forEach((card) => {
+      const cats = card.dataset.categories.split(',').filter(Boolean);
+      const show = selected.size === 0 || cats.some((c) => selected.has(c));
+      card.style.display = show ? '' : 'none';
+    });
+  }
+
+  document.querySelectorAll('.category-checkbox').forEach((cb) => {
+    cb.addEventListener('change', (e) => {
+      const value = e.target.value;
+      if (e.target.dataset.role === 'main') {
+        const subs = mainToSubsMap[value] || [];
+        subs.forEach((subName) => {
+          document
+            .querySelectorAll(`.category-checkbox[value="${CSS.escape(subName)}"]`)
+            .forEach((subCb) => { subCb.checked = e.target.checked; });
+        });
+      } else {
+        document
+          .querySelectorAll(`.category-checkbox[value="${CSS.escape(value)}"]`)
+          .forEach((otherCb) => { otherCb.checked = e.target.checked; });
+      }
+      applyFilter();
+
+      // ★検索中なら、カテゴリ変更を検索結果にも反映させるイベントを発行
+      const searchInput = document.getElementById('comment-search-input');
+      if (searchInput && searchInput.value.trim()) {
+        window.dispatchEvent(new CustomEvent('category-changed'));
+      }
+    });
+  });
+</script>
+
+<script>
+  import MiniSearch from 'minisearch';
+
+  function toBigrams(text) {
+    const clean = text.replace(/\s+/g, '');
+    if (clean.length < 2) return [clean];
+    const tokens = [];
+    for (let i = 0; i < clean.length - 1; i++) {
+      tokens.push(clean.slice(i, i + 2));
+    }
+    return tokens;
+  }
+
+  function formatDate(iso) {
+    const d = new Date(iso);
+    return `${d.getFullYear()}/${d.getMonth() + 1}/${d.getDate()}`;
+  }
+
+  function formatSeconds(sec) {
+    const h = Math.floor(sec / 3600);
+    const m = Math.floor((sec % 3600) / 60);
+    const s = sec % 60;
+    const mm = h > 0 ? String(m).padStart(2, '0') : String(m);
+    const ss = String(s).padStart(2, '0');
+    return h > 0 ? `${h}:${mm}:${ss}` : `${mm}:${ss}`;
+  }
+
+  function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  let currentSort = 'newest';
+
+  function applyVideoListSort() {
+    const container = document.getElementById('video-list');
+    const cards = [...container.querySelectorAll('.list-card')];
+    cards.sort((a, b) => {
+      const da = new Date(a.dataset.publishedAt);
+      const db = new Date(b.dataset.publishedAt);
+      return currentSort === 'newest' ? db - da : da - db;
+    });
+    cards.forEach((c) => container.appendChild(c));
+  }
+
+  async function main() {
+    const [videosRes, commentsRes] = await Promise.all([
+      fetch(import.meta.env.BASE_URL + 'data/videos.json'),
+      fetch(import.meta.env.BASE_URL + 'data/comments.json'),
+    ]);
+    const { videos } = await videosRes.json();
+    const { entries } = await commentsRes.json();
+
+    const videoById = new Map(videos.map((v) => [v.videoId, v]));
+
+    const miniSearch = new MiniSearch({
+      idField: 'id',
+      fields: ['label'],
+      storeFields: ['videoId', 'timestampSec', 'label'],
+      tokenize: toBigrams,
+      searchOptions: { combineWith: 'AND' },
+    });
+    miniSearch.addAll(entries);
+
+    const input = document.getElementById('comment-search-input');
+    const statusEl = document.getElementById('search-status');
+    const resultsEl = document.getElementById('search-results');
+    const videoListEl = document.getElementById('video-list');
+
+    function renderCard(video, hits) {
+      const hitListHtml = hits
+        ? `<div class="hit-list">${hits
+            .map((h) => {
+              const jumpUrl = `${video.url}&t=${h.timestampSec}s`;
+              return `
+                <div class="hit-row">
+                  <a href="${jumpUrl}" target="_blank" rel="noopener noreferrer">▶ ${formatSeconds(h.timestampSec)}</a>
+                  <span class="label-text">${escapeHtml(h.label)}</span>
+                </div>
+              `;
+            })
+            .join('')}</div>`
+        : '';
+
+      const guestHtml = video.guest
+        ? `<p class="card-guest">ゲスト: ${escapeHtml(video.guest)}</p>`
+        : '';
+
+      const categoriesHtml = video.categories
+        .map((c) => `<span class="category-badge">${escapeHtml(c)}</span>`)
+        .join('');
+
+      return `
+        <div class="list-card">
+          <img src="${video.thumbnail}" alt="${escapeHtml(video.title)}" loading="lazy" />
+          <div class="list-card-body">
+            <h3 class="card-title">${escapeHtml(video.title)}</h3>
+            ${guestHtml}
+            <div class="card-meta">
+              <span class="card-date">${formatDate(video.publishedAt)}</span>
+              <div class="card-categories">${categoriesHtml}</div>
+            </div>
+            ${hitListHtml}
+            <a class="youtube-button" href="${video.url}" target="_blank" rel="noopener noreferrer">YouTubeで見る</a>
+          </div>
+        </div>
+      `;
+    }
+
+    function render(query) {
+      const isSearching = Boolean(query.trim());
+
+      if (!isSearching) {
+        statusEl.textContent = '';
+        resultsEl.innerHTML = '';
+        videoListEl.hidden = false;
+        return;
+      }
+
+      videoListEl.hidden = true;
+
+      const hits = miniSearch.search(query);
+      const selectedCategories = window.getSelectedCategories();
+
+      const groups = new Map();
+      for (const hit of hits) {
+        const video = videoById.get(hit.videoId);
+        if (!video) continue;
+
+        if (selectedCategories.size > 0 && !video.categories.some((c) => selectedCategories.has(c))) {
+          continue;
+        }
+
+        if (!groups.has(hit.videoId)) groups.set(hit.videoId, []);
+        groups.get(hit.videoId).push(hit);
+      }
+
+      if (groups.size === 0) {
+        statusEl.textContent = '該当するコメントが見つかりませんでした';
+        resultsEl.innerHTML = '';
+        return;
+      }
+
+      statusEl.textContent = `${[...groups.values()].flat().length}件ヒットしました`;
+
+      const groupEntries = [...groups.entries()].sort(([videoIdA], [videoIdB]) => {
+        const va = videoById.get(videoIdA);
+        const vb = videoById.get(videoIdB);
+        if (!va || !vb) return 0;
+        const da = new Date(va.publishedAt);
+        const db = new Date(vb.publishedAt);
+        return currentSort === 'newest' ? db - da : da - db;
+      });
+
+      resultsEl.innerHTML = groupEntries
+        .map(([videoId, groupHits]) => {
+          const video = videoById.get(videoId);
+          if (!video) return '';
+          const sortedHits = [...groupHits].sort((a, b) => a.timestampSec - b.timestampSec);
+          return renderCard(video, sortedHits);
+        })
+        .join('');
+    }
+
+    let debounceTimer;
+    input.addEventListener('input', (e) => {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => render(e.target.value), 150);
+    });
+
+    document.querySelectorAll('.sort-button').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        currentSort = btn.dataset.sort;
+        document.querySelectorAll('.sort-button').forEach((b) => b.classList.toggle('active', b === btn));
+
+        if (input.value.trim()) {
+          render(input.value);
+        } else {
+          applyVideoListSort();
+        }
+      });
+    });
+
+    window.addEventListener('category-changed', () => {
+      render(input.value);
+    });
+  }
+
+  main();
+</script>
