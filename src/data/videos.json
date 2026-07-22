@@ -23,7 +23,7 @@
       "numbering": "108",
       "guest": "",
       "categories": [
-        "ゲーム"
+        "遊ぶ"
       ],
       "tags": "",
       "memo": ""
@@ -37,9 +37,9 @@
       "numbering": "106",
       "guest": "",
       "categories": [
-        "ゲーム"
+        "遊ぶ"
       ],
-      "tags": "",
+      "tags": "かまいたちの夜",
       "memo": ""
     },
     {
@@ -51,7 +51,7 @@
       "numbering": "105",
       "guest": "",
       "categories": [
-        "雑談",
+        "話す",
         "絵"
       ],
       "tags": "",
@@ -66,8 +66,7 @@
       "numbering": "103",
       "guest": "",
       "categories": [
-        "食べる",
-        "ダービー"
+        "話す"
       ],
       "tags": "",
       "memo": ""
@@ -81,7 +80,7 @@
       "numbering": "102",
       "guest": "",
       "categories": [
-        "雑談"
+        "話す"
       ],
       "tags": "",
       "memo": ""
@@ -94,7 +93,10 @@
       "publishedAt": "2026-05-14T15:43:29Z",
       "numbering": "101",
       "guest": "",
-      "categories": [],
+      "categories": [
+        "企画",
+        "視聴者"
+      ],
       "tags": "",
       "memo": ""
     },
@@ -106,7 +108,11 @@
       "publishedAt": "2026-05-06T13:05:15Z",
       "numbering": "100",
       "guest": "",
-      "categories": [],
+      "categories": [
+        "記念",
+        "作る",
+        "絵"
+      ],
       "tags": "",
       "memo": ""
     },
@@ -118,7 +124,9 @@
       "publishedAt": "2026-04-29T06:32:58Z",
       "numbering": "99",
       "guest": "",
-      "categories": [],
+      "categories": [
+        "話す"
+      ],
       "tags": "",
       "memo": ""
     },
@@ -130,8 +138,11 @@
       "publishedAt": "2026-04-22T15:17:28Z",
       "numbering": "98",
       "guest": "",
-      "categories": [],
-      "tags": "",
+      "categories": [
+        "作る",
+        "パチャる"
+      ],
+      "tags": "詩",
       "memo": ""
     },
     {
@@ -142,8 +153,11 @@
       "publishedAt": "2026-04-16T10:37:20Z",
       "numbering": "97",
       "guest": "",
-      "categories": [],
-      "tags": "",
+      "categories": [
+        "話す",
+        "グランプリ"
+      ],
+      "tags": "焼き菓子",
       "memo": ""
     },
     {
@@ -154,7 +168,10 @@
       "publishedAt": "2026-04-07T16:31:29Z",
       "numbering": "96",
       "guest": "",
-      "categories": [],
+      "categories": [
+        "遊ぶ",
+        "お便り"
+      ],
       "tags": "",
       "memo": ""
     },
@@ -166,7 +183,11 @@
       "publishedAt": "2026-03-26T17:01:26Z",
       "numbering": "94",
       "guest": "",
-      "categories": [],
+      "categories": [
+        "食べる",
+        "ダービー",
+        "お便り"
+      ],
       "tags": "",
       "memo": ""
     },
@@ -178,7 +199,10 @@
       "publishedAt": "2026-03-18T16:07:50Z",
       "numbering": "93",
       "guest": "",
-      "categories": [],
+      "categories": [
+        "作る",
+        "お便り"
+      ],
       "tags": "",
       "memo": ""
     },
@@ -190,7 +214,10 @@
       "publishedAt": "2026-03-11T16:52:38Z",
       "numbering": "92",
       "guest": "",
-      "categories": [],
+      "categories": [
+        "話す",
+        "お便り"
+      ],
       "tags": "",
       "memo": ""
     },
@@ -202,7 +229,11 @@
       "publishedAt": "2026-03-04T15:37:17Z",
       "numbering": "91",
       "guest": "",
-      "categories": [],
+      "categories": [
+        "話す",
+        "グランプリ",
+        "お便り"
+      ],
       "tags": "",
       "memo": ""
     },
@@ -214,7 +245,9 @@
       "publishedAt": "2026-02-25T17:28:34Z",
       "numbering": "90",
       "guest": "",
-      "categories": [],
+      "categories": [
+        "遊ぶ"
+      ],
       "tags": "",
       "memo": ""
     },
@@ -226,7 +259,10 @@
       "publishedAt": "2026-02-11T16:11:33Z",
       "numbering": "88",
       "guest": "",
-      "categories": [],
+      "categories": [
+        "遊ぶ",
+        "お便り"
+      ],
       "tags": "",
       "memo": ""
     },
@@ -238,7 +274,9 @@
       "publishedAt": "2026-02-03T15:18:11Z",
       "numbering": "87",
       "guest": "",
-      "categories": [],
+      "categories": [
+        "食べる"
+      ],
       "tags": "",
       "memo": ""
     },
@@ -250,7 +288,10 @@
       "publishedAt": "2026-01-28T15:38:24Z",
       "numbering": "86",
       "guest": "",
-      "categories": [],
+      "categories": [
+        "ぱちゃる",
+        "買う"
+      ],
       "tags": "",
       "memo": ""
     },
@@ -262,7 +303,10 @@
       "publishedAt": "2026-01-20T15:04:16Z",
       "numbering": "85",
       "guest": "",
-      "categories": [],
+      "categories": [
+        "話す",
+        "お便り"
+      ],
       "tags": "",
       "memo": ""
     },
@@ -274,8 +318,12 @@
       "publishedAt": "2026-01-13T15:51:38Z",
       "numbering": "84",
       "guest": "",
-      "categories": [],
-      "tags": "",
+      "categories": [
+        "話す",
+        "グランプリ",
+        "お便り"
+      ],
+      "tags": "芋料理",
       "memo": ""
     },
     {
@@ -286,7 +334,9 @@
       "publishedAt": "2026-01-07T15:43:48Z",
       "numbering": "83",
       "guest": "",
-      "categories": [],
+      "categories": [
+        "話す"
+      ],
       "tags": "",
       "memo": ""
     },
@@ -298,7 +348,10 @@
       "publishedAt": "2025-12-30T08:40:58Z",
       "numbering": "82",
       "guest": "",
-      "categories": [],
+      "categories": [
+        "話す",
+        "振り返り"
+      ],
       "tags": "",
       "memo": ""
     },
@@ -310,7 +363,9 @@
       "publishedAt": "2025-12-23T16:01:24Z",
       "numbering": "81",
       "guest": "",
-      "categories": [],
+      "categories": [
+        "話す"
+      ],
       "tags": "",
       "memo": ""
     },
@@ -322,7 +377,10 @@
       "publishedAt": "2025-12-10T15:58:41Z",
       "numbering": "79",
       "guest": "",
-      "categories": [],
+      "categories": [
+        "作る",
+        "パチャる"
+      ],
       "tags": "",
       "memo": ""
     },
@@ -334,7 +392,9 @@
       "publishedAt": "2025-12-04T16:43:08Z",
       "numbering": "78",
       "guest": "",
-      "categories": [],
+      "categories": [
+        "遊ぶ"
+      ],
       "tags": "",
       "memo": ""
     },
@@ -346,7 +406,9 @@
       "publishedAt": "2025-11-26T16:47:21Z",
       "numbering": "77",
       "guest": "",
-      "categories": [],
+      "categories": [
+        "買う"
+      ],
       "tags": "",
       "memo": ""
     },
@@ -358,7 +420,10 @@
       "publishedAt": "2025-11-19T15:37:18Z",
       "numbering": "76",
       "guest": "",
-      "categories": [],
+      "categories": [
+        "話す",
+        "クイズ"
+      ],
       "tags": "",
       "memo": ""
     },
@@ -370,7 +435,9 @@
       "publishedAt": "2025-11-11T14:47:02Z",
       "numbering": "75",
       "guest": "",
-      "categories": [],
+      "categories": [
+        "食べる"
+      ],
       "tags": "",
       "memo": ""
     },
@@ -382,8 +449,10 @@
       "publishedAt": "2025-11-04T16:47:00Z",
       "numbering": "74",
       "guest": "",
-      "categories": [],
-      "tags": "",
+      "categories": [
+        "作る"
+      ],
+      "tags": "プラモデル",
       "memo": ""
     },
     {
@@ -394,7 +463,9 @@
       "publishedAt": "2025-10-29T15:01:34Z",
       "numbering": "73",
       "guest": "",
-      "categories": [],
+      "categories": [
+        "食べる"
+      ],
       "tags": "",
       "memo": ""
     },
@@ -406,7 +477,10 @@
       "publishedAt": "2025-10-21T15:13:41Z",
       "numbering": "72",
       "guest": "",
-      "categories": [],
+      "categories": [
+        "話す",
+        "クイズ"
+      ],
       "tags": "",
       "memo": ""
     },
@@ -418,7 +492,10 @@
       "publishedAt": "2025-10-15T16:21:33Z",
       "numbering": "71",
       "guest": "",
-      "categories": [],
+      "categories": [
+        "買う",
+        "使う"
+      ],
       "tags": "",
       "memo": ""
     },
@@ -430,7 +507,9 @@
       "publishedAt": "2025-10-08T15:54:03Z",
       "numbering": "70",
       "guest": "",
-      "categories": [],
+      "categories": [
+        "買う"
+      ],
       "tags": "",
       "memo": ""
     },
@@ -442,7 +521,10 @@
       "publishedAt": "2025-10-02T15:30:29Z",
       "numbering": "69",
       "guest": "",
-      "categories": [],
+      "categories": [
+        "作る",
+        "朗読"
+      ],
       "tags": "",
       "memo": ""
     },
@@ -454,7 +536,9 @@
       "publishedAt": "2025-09-23T08:13:06Z",
       "numbering": "68",
       "guest": "",
-      "categories": [],
+      "categories": [
+        "話す"
+      ],
       "tags": "",
       "memo": ""
     },
@@ -466,8 +550,10 @@
       "publishedAt": "2025-09-18T15:55:52Z",
       "numbering": "67",
       "guest": "",
-      "categories": [],
-      "tags": "",
+      "categories": [
+        "食べる"
+      ],
+      "tags": "缶詰",
       "memo": ""
     },
     {
@@ -478,8 +564,11 @@
       "publishedAt": "2025-09-10T15:06:42Z",
       "numbering": "66",
       "guest": "",
-      "categories": [],
-      "tags": "",
+      "categories": [
+        "話す",
+        "グランプリ"
+      ],
+      "tags": "卵料理",
       "memo": ""
     },
     {
@@ -490,7 +579,9 @@
       "publishedAt": "2025-09-03T17:06:20Z",
       "numbering": "65",
       "guest": "",
-      "categories": [],
+      "categories": [
+        "食べる"
+      ],
       "tags": "",
       "memo": ""
     },
@@ -548,7 +639,7 @@
       "thumbnail": "https://i.ytimg.com/vi/DFjNqq_MTDo/hqdefault.jpg",
       "url": "https://www.youtube.com/watch?v=DFjNqq_MTDo",
       "publishedAt": "2025-07-30T17:22:39Z",
-      "numbering": "59",
+      "numbering": "60",
       "guest": "",
       "categories": [],
       "tags": "",
@@ -1311,6 +1402,20 @@
         "subCategories": []
       }
     ],
-    "uncategorized": []
+    "uncategorized": [
+      "お便り",
+      "ぱちゃる",
+      "クイズ",
+      "パチャる",
+      "企画",
+      "作る",
+      "使う",
+      "振り返り",
+      "朗読",
+      "視聴者",
+      "記念",
+      "話す",
+      "遊ぶ"
+    ]
   }
 }
