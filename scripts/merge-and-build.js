@@ -56,14 +56,18 @@ function main() {
   const categoryConfigRows = loadJson('data/category-config.json', []);
   const commentsRaw = loadJson('data/comments-raw.json', []);
 
-  const overridesByVideoId = new Map(overridesRows.map((r) => [r.videoId, r]));
+  // ★修正：スプシの実際の列名(日本語)からvideoIdを取り出してマッチングする
+  const overridesByVideoId = new Map(
+    overridesRows.map((r) => [String(r.ID ?? '').trim(), r])
+  );
   const excludedVideoIds = new Set();
 
   const videos = [];
   for (const raw of videosRaw) {
-    const ov = overridesByVideoId.get(raw.videoId) ?? {};
+    const ov = overridesByVideoId.get(String(raw.videoId).trim()) ?? {};
 
-    if (isExcluded(ov.exclude)) {
+    // ★修正：日本語の列名から値を読み取る
+    if (isExcluded(ov['除外'])) {
       excludedVideoIds.add(raw.videoId);
       continue;
     }
@@ -74,19 +78,16 @@ function main() {
       thumbnail: raw.thumbnail,
       url: raw.url,
       publishedAt: raw.publishedAt,
-      numbering: (ov.numbering_confirmed || raw.numbering_ref || '').trim(),
-      guest: (ov.guest_confirmed || '').trim(),
-      categories: parseCategories(ov.category_confirmed),
-      tags: (ov.tags || '').trim(),
-      memo: (ov.memo || '').trim(),
+      numbering: (ov['No.修正'] || raw.numbering_ref || '').trim(),
+      guest: (ov['ゲスト'] || '').trim(),
+      categories: parseCategories(ov['カテゴリー']),
+      tags: (ov['検索'] || '').trim(),
+      memo: (ov['メモ'] || '').trim(),
     });
   }
 
   videos.sort((a, b) => (Number(b.numbering) || 0) - (Number(a.numbering) || 0));
 
-  // 検索対象データ：除外動画は含めない。
-  // ★重要：1つのコメントに複数タイムスタンプがある場合、commentIdが重複するため
-  //         配列のインデックスを使って必ずユニークなidを生成する(MiniSearchのエラー対策)
   const comments = commentsRaw
     .filter((c) => !excludedVideoIds.has(c.videoId))
     .map((c, idx) => ({

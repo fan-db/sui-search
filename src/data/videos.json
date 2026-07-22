@@ -8,7 +8,9 @@
       "publishedAt": "2026-07-08T16:23:23Z",
       "numbering": "109",
       "guest": "",
-      "categories": [],
+      "categories": [
+        "買う"
+      ],
       "tags": "",
       "memo": ""
     },
@@ -20,7 +22,9 @@
       "publishedAt": "2026-07-01T15:38:39Z",
       "numbering": "108",
       "guest": "",
-      "categories": [],
+      "categories": [
+        "ゲーム"
+      ],
       "tags": "",
       "memo": ""
     },
@@ -32,7 +36,9 @@
       "publishedAt": "2026-06-16T17:11:07Z",
       "numbering": "106",
       "guest": "",
-      "categories": [],
+      "categories": [
+        "ゲーム"
+      ],
       "tags": "",
       "memo": ""
     },
@@ -44,7 +50,10 @@
       "publishedAt": "2026-06-09T15:56:37Z",
       "numbering": "105",
       "guest": "",
-      "categories": [],
+      "categories": [
+        "雑談",
+        "絵"
+      ],
       "tags": "",
       "memo": ""
     },
@@ -56,7 +65,10 @@
       "publishedAt": "2026-05-27T16:14:21Z",
       "numbering": "103",
       "guest": "",
-      "categories": [],
+      "categories": [
+        "食べる",
+        "ダービー"
+      ],
       "tags": "",
       "memo": ""
     },
@@ -68,7 +80,9 @@
       "publishedAt": "2026-05-20T15:29:31Z",
       "numbering": "102",
       "guest": "",
-      "categories": [],
+      "categories": [
+        "雑談"
+      ],
       "tags": "",
       "memo": ""
     },
@@ -1266,7 +1280,7 @@
       "thumbnail": "https://i.ytimg.com/vi/tye5LLRzLSY/hqdefault.jpg",
       "url": "https://www.youtube.com/watch?v=tye5LLRzLSY",
       "publishedAt": "2024-06-05T14:48:40Z",
-      "numbering": "",
+      "numbering": "0",
       "guest": "",
       "categories": [],
       "tags": "",
