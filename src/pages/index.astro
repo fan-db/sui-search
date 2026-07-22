@@ -282,8 +282,6 @@ function formatDate(iso) {
     toggleBtn.textContent = filterPanel.hidden ? 'カテゴリ ▼' : 'カテゴリ ▲';
   });
 
-  // ★カテゴリの選択状態を取得する共通関数。windowに載せて、
-  //   別の<script>タグ(MiniSearch側)からも呼び出せるようにする
   window.getSelectedCategories = function () {
     const checked = [...document.querySelectorAll('.category-checkbox:checked')];
     return new Set(checked.map((cb) => cb.value));
@@ -316,7 +314,6 @@ function formatDate(iso) {
       }
       applyFilter();
 
-      // ★検索中なら、カテゴリ変更を検索結果にも反映させるイベントを発行
       const searchInput = document.getElementById('comment-search-input');
       if (searchInput && searchInput.value.trim()) {
         window.dispatchEvent(new CustomEvent('category-changed'));
@@ -326,17 +323,8 @@ function formatDate(iso) {
 </script>
 
 <script>
-  import MiniSearch from 'minisearch';
-
-  function toBigrams(text) {
-    const clean = text.replace(/\s+/g, '');
-    if (clean.length < 2) return [clean];
-    const tokens = [];
-    for (let i = 0; i < clean.length - 1; i++) {
-      tokens.push(clean.slice(i, i + 2));
-    }
-    return tokens;
-  }
+  // ★変更点：MiniSearch(索引型)を廃止し、シンプルな「含んでいるか」判定に変更。
+  //   1文字の検索語でも確実にヒットするようにするため。
 
   function formatDate(iso) {
     const d = new Date(iso);
@@ -385,15 +373,6 @@ function formatDate(iso) {
 
     const videoById = new Map(videos.map((v) => [v.videoId, v]));
 
-    const miniSearch = new MiniSearch({
-      idField: 'id',
-      fields: ['label'],
-      storeFields: ['videoId', 'timestampSec', 'label'],
-      tokenize: toBigrams,
-      searchOptions: { combineWith: 'AND' },
-    });
-    miniSearch.addAll(entries);
-
     const input = document.getElementById('comment-search-input');
     const statusEl = document.getElementById('search-status');
     const resultsEl = document.getElementById('search-results');
@@ -439,6 +418,16 @@ function formatDate(iso) {
       `;
     }
 
+    // ★新しい検索ロジック：ラベル文に検索語が「含まれているか」だけを見るシンプルな方式
+    function searchComments(query) {
+      const normalizedQuery = query.trim().toLowerCase();
+      if (!normalizedQuery) return [];
+
+      return entries.filter((entry) =>
+        entry.label.toLowerCase().includes(normalizedQuery)
+      );
+    }
+
     function render(query) {
       const isSearching = Boolean(query.trim());
 
@@ -451,7 +440,7 @@ function formatDate(iso) {
 
       videoListEl.hidden = true;
 
-      const hits = miniSearch.search(query);
+      const hits = searchComments(query);
       const selectedCategories = window.getSelectedCategories();
 
       const groups = new Map();
